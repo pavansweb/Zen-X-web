@@ -13,8 +13,6 @@ function parseDateInput(inputDate) {
     return `${year}-${month}-${day}`;
 }
 
-
-
 // Get current date in YYYY-MM-DD format
 function getCurrentDate() {
     let today = new Date();
@@ -30,6 +28,7 @@ function toggleDarkMode() {
     localStorage.setItem('darkMode', darkMode);
 }
 
+// Update UI
 function updateUI() {
     updateSidebar();
     document.getElementById('journalInput').value = "";
@@ -47,6 +46,7 @@ function addTask() {
         updateUI();
     }
 }
+
 // Toggle Task Completion
 function toggleTask(checkbox) {
     checkbox.parentElement.style.textDecoration = checkbox.checked ? "line-through" : "none";
@@ -67,11 +67,9 @@ function saveJournal() {
 // Set Exercise Count
 function setExerciseCount(exerciseId, value) {
     let date = getCurrentDate();
-
     if (!dataStore[date]) dataStore[date] = { tasks: [], journals: [], exercises: {} };
     dataStore[date].exercises[exerciseId] = value || 0;
     localStorage.setItem('zenxData', JSON.stringify(dataStore));
-
     updateSidebar();
 }
 
@@ -140,6 +138,10 @@ function toggleSidebar() {
     mainContent.classList.toggle('shift');
 }
 
+document.getElementById('sidebar').addEventListener('scroll', function(event) {
+    event.stopPropagation();
+});
+
 // Ensure Sidebar Visibility on Resize
 window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
@@ -158,5 +160,3 @@ function clearLocalStorage() {
     dataStore = {}; // Clear dataStore
     updateSidebar(); // Update sidebar after clearing
 }
-
-

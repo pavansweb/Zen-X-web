@@ -7,69 +7,77 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Zen X</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <meta name="google" content="notranslate">
+  <html lang="en" translate="no">
+
+  <link rel="icon" type="image/png" href="android-chrome-512x512.png">
   <link href="style.css" rel="stylesheet" type="text/css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
   <!-- Header -->
-  <header>
+  <header class="d-flex justify-content-between align-items-center p-3 bg-primary text-white">
     <div class="hamburger" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
+      <i class="fas fa-bars fa-2x"></i>
     </div>
     <h1>Zen X</h1>
-    
     <div class="dark-mode-toggle" onclick="toggleDarkMode()">
-      <i class="fas fa-moon"></i>
+      <i class="fas fa-moon fa-2x"></i>
     </div>
   </header>
 
   <!-- Sidebar -->
-  <aside id="sidebar">
+  <aside id="sidebar" class="bg-primary text-white p-3">
     <div class="hamburger" onclick="toggleSidebar()">
-      <i class="fas fa-times"></i>
+      <i class="fas fa-times fa-2x"></i>
     </div>
     <h2>Journal & Task Tracker</h2>
-    <div class="sidebar-search">
-      <input type="date" id="searchDateInput">
-      <button onclick="searchByDate()">Search</button>
+    <div class="sidebar-search d-flex mb-3 bg-light rounded p-2">
+      <input type="date" id="searchDateInput" class="form-control mr-2">
+      <button class="btn btn-secondary" onclick="searchByDate()">Search</button>
     </div>
-    <ul id="dateList"></ul>
-    <div id="searchResults"></div>
-    <button onclick="clearLocalStorage()">Clear History</button>
-
+    <ul id="dateList" class="list-unstyled"></ul>
+    <div id="searchResults" class="bg-dark p-2 rounded text-white"></div>
+    <button class="btn btn-danger mt-3" onclick="clearLocalStorage()">Clear History</button>
   </aside>
 
   <!-- Main Content -->
-  <main>
+  <main class="p-3">
     <section id="todo">
       <h2>To-Do List</h2>
-      <input type="text" id="taskInput" placeholder="Enter task">
-      <button onclick="addTask()">Add Task</button>
-      <ul id="taskList"></ul>
+      <input type="text" id="taskInput" class="form-control mb-2" placeholder="Enter task">
+      <button class="btn btn-primary" onclick="addTask()">Add Task</button>
+      <ul id="taskList" class="list-unstyled"></ul>
     </section>
 
     <section id="journal">
       <h2>Journal</h2>
-      <textarea id="journalInput" rows="5" placeholder="Write your journal entry..."></textarea>
-      <button onclick="saveJournal()">Save Journal Entry</button>
+      <textarea id="journalInput" class="form-control mb-2" rows="5"
+        placeholder="Write your journal entry..."></textarea>
+      <button class="btn btn-primary" onclick="saveJournal()">Save Journal Entry</button>
       <div id="journalOutput"></div>
     </section>
 
     <section id="tracker">
       <h2>Daily Tracker</h2>
       <p>Track your daily fitness progress!</p>
-      <ul id="trackerList">
-        <li>Push-ups: <input type="number" id="pushupsInput" placeholder="Enter count" min="0"
+      <ul id="trackerList" class="list-unstyled">
+        <li>Push-ups: <input type="number" id="pushupsInput" class="form-control" placeholder="Enter count" min="0"
             oninput="setExerciseCount('pushupsCount', this.value)"></li>
-        <li>Pull-ups: <input type="number" id="pullupsInput" placeholder="Enter count" min="0"
+        <li>Pull-ups: <input type="number" id="pullupsInput" class="form-control" placeholder="Enter count" min="0"
             oninput="setExerciseCount('pullupsCount', this.value)"></li>
-        <li>Handstand: <input type="number" id="handstandInput" placeholder="Enter count" min="0"
+        <li>Handstand: <input type="number" id="handstandInput" class="form-control" placeholder="Enter count" min="0"
             oninput="setExerciseCount('handstandCount', this.value)"></li>
       </ul>
     </section>
   </main>
 
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
 </body>
 

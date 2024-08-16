@@ -1,148 +1,57 @@
 /* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --primary-color: #6200ea;
+    --secondary-color: #3700b3;
+    --bg-color-light: #f4f4f4;
+    --bg-color-dark: #333;
+    --text-color-light: #333;
+    --text-color-dark: #f4f4f4;
+    --border-radius: 8px;
+    --transition-time: 0.3s;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color var(--transition-time), color var(--transition-time);
+    overflow: auto;
 }
 
+h2 {
+    color: var(--primary-color);
+}
+
+
 body.dark-mode {
-    background-color: #333;
-    color: #f4f4f4;
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
 }
 
 header {
-    background-color: #6200ea;
+    background-color: var(--primary-color);
     color: white;
     padding: 20px;
     text-align: center;
-    position: relative;
 }
 
-.hamburger, .dark-mode-toggle {
-    font-size: 30px;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
-    color: white;
-}
-
-.hamburger {
-    right: 60px;
-}
-
-.dark-mode-toggle {
-    right: 20px;
-}
-
-/* Sidebar Styles */
 #sidebar {
-    width: 300px;
-    height: 200%;
-    background: linear-gradient(145deg, #6200ea, #3700b3);
+    background-color: var(--bg-color-light);
     position: fixed;
     left: -300px;
     top: 0;
+    width: 300px;
+    height: 200%;
     padding: 20px;
     transition: left 0.4s ease;
     z-index: 1000;
     color: white;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
-
-/* Sidebar when visible */
 #sidebar.show {
     left: 0;
 }
-
-/* Search section */
-.sidebar-search {
-    display: flex;
-    margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.2); /* Slightly translucent background */
-    border-radius: 8px; /* Rounded corners */
-    padding: 10px;
-}
-
-.sidebar-search input[type="date"] {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #ffffff; /* White background for better contrast */
-    color: #333; /* Dark text color */
-}
-
-.sidebar-search button {
-    background-color: #3700b3;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-}
-
-.sidebar-search button:hover {
-    background-color: #6200ea;
-}
-
-/* Results section */
-#searchResults {
-    margin: 2rem 0;
-    border: 1px solid #ffffff; /* White border for contrast */
-    border-radius: 8px; /* Rounded corners */
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.3); /* Slightly translucent background */
-}
-
-#searchResults h3 {
-    color: #ffffff; /* Ensure the heading stands out */
-}
-
-#searchResults p {
-    margin: 0.5rem 0; /* Spacing between results */
-}
-
-/* Date list */
-#dateList {
-    list-style: none;
-    padding: 0;
-}
-
-#dateList li {
-    padding: 10px;
-    border-bottom: 1px solid #ffffff; /* White border between entries */
-}
-
-#dateList li:last-child {
-    border-bottom: none; /* No border for the last item */
-}
-
-#dateList li strong {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #ffffff; /* Ensure the heading stands out */
-}
-
-#dateList ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-#dateList ul li {
-    margin: 0.5rem 0; /* Spacing between entries */
-}
-
 
 main {
     padding: 20px;
@@ -158,38 +67,31 @@ section {
     margin-bottom: 40px;
 }
 
-h2 {
-    color: #6200ea;
-}
-
-input[type="text"], textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
 button {
-    background-color: #6200ea;
+    background-color: var(--primary-color);
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 button:hover {
-    background-color: #3700b3;
+    background-color: var(--secondary-color);
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-}
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        height: 100%;
+        left: -100%;
+        position: fixed; /* Ensure it's fixed and not relative or absolute */
+    }
 
-nav a:hover {
-    text-decoration: underline;
+    #sidebar.show {
+        left: 0;
+    }
+
+    main.shift {
+        margin-left: 0;
+    }
+
+   
 }
