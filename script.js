@@ -109,12 +109,14 @@ function updateSidebar() {
         let journalList = dataStore[date].journals.map(journal => `<li>${journal}</li>`).join('');
         let exerciseList = Object.entries(dataStore[date].exercises)
             .map(([exercise, count]) => `<li>${exercise}: ${count}</li>`).join('');
+        let imageSection = dataStore[date].image ? `<img src="${dataStore[date].image}" alt="Daily Picture" style="max-width: 100%; height: auto;">` : '';
 
         let dateDetails = `
             <ul>
                 <strong>Tasks:</strong> ${taskList}
                 <strong>Journals:</strong> ${journalList}
                 <strong>Exercises:</strong> ${exerciseList}
+                ${imageSection}
             </ul>
         `;
         dateItem.innerHTML += dateDetails;
@@ -171,3 +173,25 @@ function clearLocalStorage() {
     dataStore = {}; // Clear dataStore
     updateSidebar(); // Update sidebar after clearing
 }
+
+// Handle image upload (simulate upload by displaying a local image or URL)
+function handleImageUpload() {
+    let imageInput = document.getElementById('imageInput').files[0];
+    let imageOutput = document.getElementById('imageOutput');
+
+    if (imageInput) {
+        // Display the image locally
+        let imageUrl = URL.createObjectURL(imageInput);
+        imageOutput.innerHTML = `<img src="${imageUrl}" alt="Daily Picture" style="max-width: 100%;">`;
+    }
+}
+
+// Optionally, add fixed URLs for images stored in GitHub
+function showGitHubImage() {
+    let imageOutput = document.getElementById('imageOutput');
+    let imageUrl = 'https://raw.githubusercontent.com/pavansweb/repository/branch/images/your-image.jpg'; // Replace with your image URL
+    imageOutput.innerHTML = `<img src="${imageUrl}" alt="Daily Picture" style="max-width: 100%;">`;
+}
+
+// Call showGitHubImage() to display an image from GitHub
+document.addEventListener('DOMContentLoaded', showGitHubImage);
