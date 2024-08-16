@@ -134,9 +134,20 @@ document.addEventListener('DOMContentLoaded', function () {
 function toggleSidebar() {
     let sidebar = document.getElementById('sidebar');
     let mainContent = document.querySelector('main');
+    let body = document.body;
+
     sidebar.classList.toggle('show');
     mainContent.classList.toggle('shift');
+
+    // Toggle body scroll
+    if (sidebar.classList.contains('show')) {
+        body.classList.add('no-scroll');
+        sidebar.focus(); // Focus on the sidebar
+    } else {
+        body.classList.remove('no-scroll');
+    }
 }
+
 
 document.getElementById('sidebar').addEventListener('scroll', function(event) {
     event.stopPropagation();
