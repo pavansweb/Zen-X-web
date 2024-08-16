@@ -174,24 +174,3 @@ function clearLocalStorage() {
     updateSidebar(); // Update sidebar after clearing
 }
 
-// Handle image upload (simulate upload by displaying a local image or URL)
-function handleImageUpload() {
-    let imageInput = document.getElementById('imageInput').files[0];
-    let imageOutput = document.getElementById('imageOutput');
-
-    if (imageInput) {
-        // Display the image locally
-        let imageUrl = URL.createObjectURL(imageInput);
-        imageOutput.innerHTML = `<img src="${imageUrl}" alt="Daily Picture" style="max-width: 100%;">`;
-    }
-}
-
-// Optionally, add fixed URLs for images stored in GitHub
-function showGitHubImage() {
-    let imageOutput = document.getElementById('imageOutput');
-    let imageUrl = 'https://raw.githubusercontent.com/pavansweb/Zen-X-web/main/images/a.jpg'; // Replace with your image URL
-    imageOutput.innerHTML = `<img src="${imageUrl}" alt="Daily Picture" style="max-width: 100%;">`;
-}
-
-// Call showGitHubImage() to display an image from GitHub
-document.addEventListener('DOMContentLoaded', showGitHubImage);
