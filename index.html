@@ -63,6 +63,12 @@
     <section id="tracker">
       <h2>Daily Tracker</h2>
       <p>Track your daily fitness progress!</p>
+
+      <div id="image-upload" class="mb-3">
+        <input type="file" id="imageInput" accept="image/*" class="form-control mb-2">
+        <button class="btn btn-primary" onclick="uploadImage()">Upload Image</button>
+      </div>
+      
       <ul id="trackerList" class="list-unstyled">
         <li>Push-ups: <input type="number" id="pushupsInput" class="form-control" placeholder="Enter count" min="0"
             oninput="setExerciseCount('pushupsCount', this.value)"></li>
@@ -72,6 +78,7 @@
             oninput="setExerciseCount('handstandCount', this.value)"></li>
       </ul>
     </section>
+
 
     
   </main>

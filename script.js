@@ -73,7 +73,7 @@ function setExerciseCount(exerciseId, value) {
     updateSidebar();
 }
 
-// Search Entries by Date
+// Search Entries by Date, including images
 function searchByDate() {
     let searchInput = document.getElementById('searchDateInput').value;
     let searchResults = document.getElementById('searchResults');
@@ -83,20 +83,33 @@ function searchByDate() {
 
     if (standardizedDate && dataStore[standardizedDate]) {
         let result = dataStore[standardizedDate];
+
+        // Prepare task, journal, and exercise data
+        let taskList = result.tasks.length ? result.tasks.map(task => `<p>${task}</p>`).join('') : 'No tasks';
+        let journalList = result.journals.length ? result.journals.map(journal => `<p>${journal}</p>`).join('') : 'No journal entries';
+        let exerciseList = Object.entries(result.exercises).length ? Object.entries(result.exercises).map(([exercise, count]) => `<p>${exercise}: ${count}</p>`).join('') : 'No exercises tracked';
+
+        // Check if an image exists for this date
+        let imageSection = result.image ? `<img src="${result.image}" alt="Daily Picture" style="max-width: 100%; height: auto; margin-top: 20px;">` : '';
+
+        // Display the search results, including the image if available
         searchResults.innerHTML = `
             <h3>Results for ${standardizedDate}</h3>
             <ul>
-                <li><strong>Tasks:</strong> ${result.tasks.length ? result.tasks.map(task => `<p>${task}</p>`).join('') : 'No tasks'}</li>
-                <li><strong>Journals:</strong> ${result.journals.length ? result.journals.map(journal => `<p>${journal}</p>`).join('') : 'No journal entries'}</li>
-                <li><strong>Exercises:</strong> ${Object.entries(result.exercises).length ? Object.entries(result.exercises).map(([exercise, count]) => `<p>${exercise}: ${count}</p>`).join('') : 'No exercises tracked'}</li>
+                <li><strong>Tasks:</strong> ${taskList}</li>
+                <li><strong>Journals:</strong> ${journalList}</li>
+                <li><strong>Exercises:</strong> ${exerciseList}</li>
             </ul>
+            ${imageSection}
         `;
     } else {
         searchResults.innerHTML = `<p>No entries found for ${standardizedDate}</p>`;
     }
 }
 
+
 // Update Sidebar with Dates and Entries
+// Update Sidebar with Dates and Entries, including images
 function updateSidebar() {
     let dateList = document.getElementById('dateList');
     dateList.innerHTML = "";
@@ -123,6 +136,7 @@ function updateSidebar() {
         dateList.appendChild(dateItem);
     }
 }
+
 
 // Initialize Sidebar and Dark Mode on Page Load
 document.addEventListener('DOMContentLoaded', function () {
@@ -167,10 +181,45 @@ window.addEventListener('resize', () => {
 });
 
 // Clear Local Storage
+// Clear Local Storage for the current date only
 function clearLocalStorage() {
-    localStorage.removeItem('zenxData');
-    localStorage.removeItem('darkMode');
-    dataStore = {}; // Clear dataStore
-    updateSidebar(); // Update sidebar after clearing
+    const currentDate = getCurrentDate();
+
+    // Check if data exists for the current date
+    if (dataStore[currentDate]) {
+        delete dataStore[currentDate]; // Remove only today's data
+        localStorage.setItem('zenxData', JSON.stringify(dataStore)); // Update local storage
+        updateSidebar(); // Update the sidebar after clearing
+        alert('Today\'s history has been cleared.');
+    } else {
+        alert('No history found for today.');
+    }
 }
 
+
+// Upload and Save Image to Local Storage
+function uploadImage() {
+    const imageInput = document.getElementById('imageInput');
+    const file = imageInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const imageData = reader.result;
+            const date = getCurrentDate();
+
+            // Ensure the date entry exists in the dataStore
+            if (!dataStore[date]) dataStore[date] = { tasks: [], journals: [], exercises: {}, image: "" };
+
+            // Save the image data in dataStore
+            dataStore[date].image = imageData;
+            localStorage.setItem('zenxData', JSON.stringify(dataStore));
+
+            // Update the UI
+            updateSidebar();
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please select an image to upload.');
+    }
+}
