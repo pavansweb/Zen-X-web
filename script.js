@@ -189,7 +189,7 @@ function handleImageUpload() {
 // Optionally, add fixed URLs for images stored in GitHub
 function showGitHubImage() {
     let imageOutput = document.getElementById('imageOutput');
-    let imageUrl = 'https://raw.githubusercontent.com/pavansweb/repository/branch/images/your-image.jpg'; // Replace with your image URL
+    let imageUrl = 'https://raw.githubusercontent.com/pavansweb/Zen-X-web/main/images/a.jpg'; // Replace with your image URL
     imageOutput.innerHTML = `<img src="${imageUrl}" alt="Daily Picture" style="max-width: 100%;">`;
 }
 
